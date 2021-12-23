@@ -8,13 +8,14 @@ import React, { ReactNode } from "react"
 import "./index.css"
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
-    // eslint-disable-next-line 
     let isUser = this.props.args["is_user"]
     let pfpSeed = this.props.args["seed"]
-    let avatarUrl = `https://avatars.dicebear.com/api/bottts/${pfpSeed}.svg`
+    let pfpType = isUser ? "personas" : "bottts"
+    let avatarUrl = `https://avatars.dicebear.com/api/${pfpType}/${pfpSeed}.svg`
+    let classes = isUser ? "chat user" : "chat"
 
     return (
-      <div className="chat">
+      <div className={classes}>
         <img src={avatarUrl} alt="profile" />
         <div>
           {this.props.args["message"]}

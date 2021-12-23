@@ -24,3 +24,11 @@ code {
   width: 3rem;
   float: left;
 }
+
+.chat.user img {
+  float: right;
+}
+
+.chat.user div {
+  text-align: right;
+}

@@ -19,8 +19,13 @@ code {
   flex-direction: row;
 }
 
-.chat div {
+.chat .message {
   display: inline-block;
+  background: #262730;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 14px;
+  /* margin: 0 20% 0 2%; top right bottom left */
 }
 
 .chat img {
@@ -30,10 +35,16 @@ code {
   width: 3rem;
 }
 
+.chat .spacer {
+  display: inline-block;
+  width: 20%;
+}
+
 .chat.user {
   flex-direction: row-reverse;
 }
 
-.chat.user div {
+.chat.user .message {
   text-align: right;
+  /* margin: 0 2% 0 20%;  */
 }

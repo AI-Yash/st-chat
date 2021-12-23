@@ -6,6 +6,7 @@ import {
 } from "streamlit-component-lib"
 import React, { ReactNode } from "react"
 import "./index.css"
+
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
     let isUser = this.props.args["is_user"]
@@ -17,7 +18,8 @@ class Chat extends StreamlitComponentBase {
     return (
       <div className={classes}>
         <img src={avatarUrl} alt="profile" />
-        <div>
+
+        <div className="message">
           {this.props.args["message"]}
         </div>
       </div>

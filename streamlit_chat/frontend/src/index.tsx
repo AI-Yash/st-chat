@@ -1,10 +1,10 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import MyComponent from "./MyComponent"
+import Chat from "./stChat"
 
 ReactDOM.render(
   <React.StrictMode>
-    <MyComponent />
+    <Chat />
   </React.StrictMode>,
   document.getElementById("root")
 )

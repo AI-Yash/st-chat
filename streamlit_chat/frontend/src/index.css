@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.chat {
+  width: 100%;
+  height: auto;
+}
+
+.chat img {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  float: left;
+}

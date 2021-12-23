@@ -17,7 +17,7 @@ class Chat extends StreamlitComponentBase {
 
     return (
       <div className={classes}>
-        <img src={avatarUrl} alt="profile" />
+        <img src={avatarUrl} alt="profile" draggable="false"/>
 
         <div className="message">
           {this.props.args["message"]}

@@ -15,6 +15,12 @@ code {
 .chat {
   width: 100%;
   height: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.chat div {
+  display: inline-block;
 }
 
 .chat img {
@@ -22,11 +28,10 @@ code {
   border-radius: 50%;
   height: 3rem;
   width: 3rem;
-  float: left;
 }
 
-.chat.user img {
-  float: right;
+.chat.user {
+  flex-direction: row-reverse;
 }
 
 .chat.user div {

@@ -9,10 +9,8 @@ import "./index.css"
 
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
-    let isUser = this.props.args["is_user"]
-    let pfpSeed = this.props.args["seed"]
-    let pfpType = isUser ? "personas" : "bottts"
-    let avatarUrl = `https://avatars.dicebear.com/api/${pfpType}/${pfpSeed}.svg`
+    const { isUser, avatarStyle, seed } = this.props.args;
+    let avatarUrl = `https://avatars.dicebear.com/api/${avatarStyle}/${seed}.svg`
     let classes = isUser ? "chat user" : "chat"
 
     // Streamlit sends us a theme object via props that we can use to ensure
@@ -24,9 +22,6 @@ class Chat extends StreamlitComponentBase {
     // Maintain compatibility with older versions of Streamlit that don't send
     // a theme object.
     if (theme) {
-      // Use the theme object to style our button border. Alternatively, the
-      // theme style is defined in CSS vars.
-      // messageBoxStyle.border = `1px solid ${theme.primaryColor}`
       messageBoxStyle.backgroundColor = theme.secondaryBackgroundColor 
     }
 

@@ -3,8 +3,8 @@ import os
 from typing import Any, Literal, Optional, Union
 
 
-_RELEASE = False
-COMPONENT_NAME = "Streamlit_Chat"
+_RELEASE = True
+COMPONENT_NAME = "streamlit_chat"
 
 if _RELEASE:  # use the build instead of development if release is true
     root_dir = os.path.dirname(os.path.abspath(__file__))

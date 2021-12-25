@@ -1,14 +1,14 @@
 import setuptools
 
 setuptools.setup(
-    name="streamlit-custom-component",
+    name="streamlit-chat",
     version="0.0.1",
-    author="",
-    author_email="",
-    description="",
-    long_description="",
+    author="Yash Pravin Pawar, Yash Vardhan Kapil",
+    author_email="yashpawarp@gmail.com, workid169@gmail.com",
+    description="A streamlit component, to make chatbots",
+    long_description="A streamlit component, to make chatbots",
     long_description_content_type="text/plain",
-    url="",
+    url="https://github.com/AI-Yash/st-chat",
     packages=setuptools.find_packages(),
     include_package_data=True,
     classifiers=[],

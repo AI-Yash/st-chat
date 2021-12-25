@@ -25,15 +25,15 @@ jobs:
           python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
       # Runs a single command using the runners shell
-      - name: install node dependencies
-        run: |
-          cd streamlit_chat/frontend
-          npm install
+      # - name: install node dependencies
+      #   run: |
+      #     cd streamlit_chat/frontend
+      #     npm install
       
-      - name: build frontend
-        run: |
-          npm run build
-          cd ../..
+      # - name: build frontend
+      #   run: |
+      #     npm run build
+      #     cd ../..
       # Runs a set of commands using the runners shell
       - name: install python dependencies
         run: pip install -r requirements.txt

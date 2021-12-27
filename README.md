@@ -7,9 +7,9 @@ authors - [@yashppawar](https://github.com/yashppawar) & [@YashVardhan-AI](https
 
 ## Installation
 
-Install `streamlit-chat` with pip (test.pypi)
+Install `streamlit-chat` with pip
 ```bash
- pip install -i https://test.pypi.org/simple/ streamlit-chat==0.0.1.1 --upgrade
+ pip install streamlit-chat==0.0.1 
 ```
 
 use

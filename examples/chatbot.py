@@ -11,7 +11,7 @@ API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-
 headers = {"Authorization": st.secrets['api_key']}
 
 st.header("Streamlit Chat - Demo")
-st.markdown("[Github](https://github.com/ai-yash/st-chat")
+st.markdown("[Github](https://github.com/ai-yash/st-chat)")
 
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []

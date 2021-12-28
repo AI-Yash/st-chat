@@ -9,18 +9,6 @@ import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 
 
-const specificChatDivStyles = (props: {isUser: boolean}) => {
-  if (props.isUser) {
-    return css`
-      flex-direction: row-reverse;
-      & > div {
-        text-align: right;
-      }
-    `
-  }
-  return css``
-}
-
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
     const { isUser, avatarStyle, seed, message } = this.props.args;
@@ -36,34 +24,47 @@ class Chat extends StreamlitComponentBase {
     if (!theme) {
       return <div>Theme is undefined, please check streamlit version.</div>
     }
-
-    const Chat = styled.div`
-      width: 100%;
-      height: auto;
-      display: flex;
-      flex-direction: row;
-      font-family: ${theme.font}, 'Segoe UI', 'Roboto', sans-serif;
-      margin: 0;
-      ${specificChatDivStyles}
-    `
-
-    const Avatar = styled.img`
-      border: 1px solid transparent;
-      border-radius: 50%;
-      height: 3rem;
-      width: 3rem;
-      margin: 0;
-    `
-
-    const Message = styled.div`
-      display: inline-block;
-      background: ${theme.secondaryBackgroundColor};
-      border: 1px solid transparent;
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin: 5px 20px;
-      max-width: 70%;
-    `
+    
+    // styles for the avatar image
+    const Avatar = styled.img({
+      border: `1px solid transparent`,
+      borderRadius: '50%',
+      height: '3rem',
+      width: '3rem',
+      margin: 0
+    })
+    
+    // styles for the message box
+    const Message = styled.div({
+      display: 'inline-block',
+      background: theme.secondaryBackgroundColor,
+      border: '1px solid transparent',
+      borderRadius: '10px',
+      padding: '10px 14px',
+      margin: '5px 20px',
+      maxWidth: '70%'
+    })
+    
+    // styles for the container
+    const Chat = styled.div({
+      display: 'flex',
+      // flexDirection: 'row',
+      fontFamily: `${theme.font}, 'Segoe UI', 'Roboto', sans-serif`, 
+      height: 'auto',
+      margin: 0,
+      width: '100%'
+    }, 
+    (props: {isUser: boolean}) => {  // specific styles
+      if (props.isUser){
+        return css`
+          flex-direction: row-reverse;
+          & > div {
+            text-align: right;
+          }
+        `
+      }
+      return css``
+    })
 
     return (
       <Chat isUser={isUser}>

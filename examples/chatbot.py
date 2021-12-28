@@ -3,7 +3,7 @@ from streamlit_chat import message
 import requests
 
 API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill"
-headers = {"Authorization": "Hugging face API key"}
+headers = {"Authorization": st.secrets['api_key']}
 
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []

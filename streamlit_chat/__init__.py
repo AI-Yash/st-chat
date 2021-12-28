@@ -1,6 +1,6 @@
 import streamlit.components.v1 as components
 import os
-from typing import Any, Literal, Optional, Union
+from typing import Literal, Optional, Union
 
 
 _RELEASE = True
@@ -62,7 +62,7 @@ def message(message: str,
         message to right, default is False.
     avatar_style: Literal or None
         The style for the avatar of the sender of message, default is bottts
-        for not user, and identicon for user.
+        for not user, and pixel-art-neutral for user.
         st-chat uses https://avatars.dicebear.com/styles for the avatar
     seed: int or str
         The seed for choosing the avatar to be used, default is 42.
@@ -74,17 +74,19 @@ def message(message: str,
     Returns: None
     """
     if not avatar_style:
-        avatar_style = "identicon" if is_user else "bottts"
+        avatar_style = "pixel-art-neutral" if is_user else "bottts"
 
     _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key)
 
 
 if not _RELEASE:
+    import streamlit as st  
     # testing
-    lorem_message = """
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    long_message = """
+    A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent. Designed to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
     """
 
-    message("Hello, world!")
-    message("Test Message", is_user=True)
-    message(lorem_message)
+    message("Hello, I am a Chatbot, how may I help you?")
+    message("Hey, what's a chatbot?", is_user=True)
+    message(long_message)
+    st.text_input("Message:")

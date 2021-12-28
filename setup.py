@@ -11,7 +11,7 @@ setuptools.setup(
     author_email="yashpawarp@gmail.com, workid169@gmail.com",
     description="A streamlit component, to make chatbots",
     long_description=readme,
-    long_description_content_type="text/plain",
+    long_description_content_type="text/markdown",
     url="https://github.com/AI-Yash/st-chat",
     packages=setuptools.find_packages(),
     include_package_data=True,

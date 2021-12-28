@@ -17,7 +17,6 @@ def query(payload):
 
 def get_text():
     input_text = st.text_input("You: ","Hello, how are you?", key="input")
-    st.session_state['input']=''
     return input_text 
 
 

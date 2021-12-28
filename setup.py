@@ -6,7 +6,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name="streamlit-chat",
-    version="0.0.1",
+    version="0.0.2",
     author="Yash Pravin Pawar, Yash Vardhan Kapil",
     author_email="yashpawarp@gmail.com, workid169@gmail.com",
     description="A streamlit component, to make chatbots",

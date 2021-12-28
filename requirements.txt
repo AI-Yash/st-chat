@@ -1,1 +1,3 @@
 streamlit==0.88.0
+streamlit-chat==0.0.2
+requests

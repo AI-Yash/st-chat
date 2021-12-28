@@ -16,7 +16,8 @@ def query(payload):
 	return response.json()
 
 def get_text():
-    input_text = st.text_input("You: ","Hello, how are you?")
+    input_text = st.text_input("You: ","Hello, how are you?", key="input")
+    st.session_state['input']=''
     return input_text 
 
 
@@ -33,6 +34,8 @@ if user_input:
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output["generated_text"])
+
+if st.session_state['generated']:
 
     for i in range(len(st.session_state['generated'])-1, -1, -1):
 

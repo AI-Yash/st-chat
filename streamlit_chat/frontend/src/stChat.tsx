@@ -1,8 +1,7 @@
 import {
-  // eslint-disable-next-line 
-  Streamlit,
   StreamlitComponentBase,
   withStreamlitConnection,
+  Streamlit
 } from "streamlit-component-lib"
 import React, { ReactNode } from "react"
 import styled from '@emotion/styled'
@@ -10,66 +9,134 @@ import { css } from '@emotion/react'
 
 
 class Chat extends StreamlitComponentBase {
+  public componentDidUpdate = () => {
+    Streamlit.setFrameHeight()
+  }
+
+  public componentDidMount = () => {
+    Streamlit.setFrameHeight()
+  }
+
   public render = (): ReactNode => {
-    const { isUser, avatarStyle, seed, message } = this.props.args;
+    const { isUser, isPicture, avatarStyle, seed, message } = this.props.args;
     const avatarUrl = `https://avatars.dicebear.com/api/${avatarStyle}/${seed}.svg`
-    
+
     // Streamlit sends us a theme object via props that we can use to ensure
     // that our component has visuals that match the active theme in a
     // streamlit app.
     const { theme } = this.props
-    
+
     // Maintain compatibility with older versions of Streamlit that don't send
     // a theme object.
     if (!theme) {
       return <div>Theme is undefined, please check streamlit version.</div>
     }
-    
+
     // styles for the avatar image
     const Avatar = styled.img({
       border: `1px solid transparent`,
       borderRadius: '50%',
-      height: '3rem',
-      width: '3rem',
+      height: '2.5rem',
+      width: '2.5rem',
       margin: 0
     })
-    
+
     // styles for the message box
     const Message = styled.div({
-      display: 'inline-block',
+      display: 'block',
       background: theme.secondaryBackgroundColor,
       border: '1px solid transparent',
-      borderRadius: '10px',
+      borderRadius: '1px 10px 10px 1px',
       padding: '10px 14px',
-      margin: '5px 20px',
-      maxWidth: '70%'
+      margin: '1px 5px',
+      maxWidth: '70%',
+      width: 'fit-content',
+    }, (props: { isUser: boolean }) => {
+      return css`
+        &:first-child {
+          border-radius: ${props.isUser ? '10px 1px 1px 10px' : '1px 10px 10px 1px'};
+        }
+        &:last-child {
+          border-radius: ${props.isUser ? '10px 1px 10px 10px' : '1px 10px 10px 10px'};
+        }
+        & * {
+          max-width: 100%;
+        }
+      `
     })
-    
-    // styles for the container
-    const Chat = styled.div({
-      display: 'flex',
-      // flexDirection: 'row',
-      fontFamily: `${theme.font}, 'Segoe UI', 'Roboto', sans-serif`, 
-      height: 'auto',
-      margin: 0,
-      width: '100%'
-    }, 
-    (props: {isUser: boolean}) => {  // specific styles
-      if (props.isUser){
+
+    const MessageDiv = styled.div({
+      width: '100%',
+    }, (props: {isUser: boolean}) => {
+      if (props.isUser) {
         return css`
-          flex-direction: row-reverse;
-          & > div {
-            text-align: right;
+          & div {
+            margin-left: auto;
+            margin-right: 0;
           }
         `
       }
       return css``
     })
 
+    // styles for the container
+    const Chat = styled.div({
+      fontFamily: `${theme.font}, 'Segoe UI', 'Roboto', sans-serif`, 
+      height: 'auto',
+      margin: 0,
+      width: '100%',
+      flexFlow: 'column'
+    }, 
+    (props: {isUser: boolean}) => {  // specific styles
+      if (props.isUser){
+        return css`
+          text-align: right;
+        `
+      }
+      return css``
+    })
+
+    const Img = styled.img({
+      maxWidth: '70%',
+      display: 'block',
+      borderRadius: '1px 10px 10px 1px',
+      margin: '1px 5px'
+    }, (props: { isUser: boolean }) => {
+      return css`
+        ${props.isUser ? 'margin-left: auto;' : 'margin-right: auto;'}
+        &:first-child {
+          border-radius: ${props.isUser ? '10px 1px 1px 10px' : '1px 10px 10px 1px'};
+        }
+        &:last-child {
+          border-radius: ${props.isUser ? '10px 1px 10px 10px' : '1px 10px 10px 10px'};
+        }
+      `
+    })
+
+    // The message variable could be an array of strings or a single string.
+    // If it's an array, we'll render each element as a separate message.
+    // If it's a string, we'll render it as a single message.
+    let messages: ReactNode[] | ReactNode = []
+    if (Array.isArray(message)) {
+      messages = message.map((m: string, i: number) => {
+        if (isPicture[i])
+          return <Img onLoad={() => Streamlit.setFrameHeight()} key={i} src={m} isUser={isUser} />
+
+        return <Message isUser={isUser} key={i}>{m}</Message>
+      })
+    } else {
+      if (isPicture)
+        messages = <Img onLoad={() => Streamlit.setFrameHeight()} src={message} isUser={isUser} key="0" />
+      else
+        messages = <Message isUser={isUser} key="0">{message}</Message>
+    }
+
     return (
       <Chat isUser={isUser}>
         <Avatar src={avatarUrl} alt="profile" draggable="false"/>
-        <Message>{message}</Message>
+        <MessageDiv isUser={isUser}>
+          {messages}
+        </MessageDiv>
       </Chat>
     )
   }

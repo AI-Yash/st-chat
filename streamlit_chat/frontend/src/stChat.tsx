@@ -18,7 +18,7 @@ class Chat extends StreamlitComponentBase {
   }
 
   public render = (): ReactNode => {
-    const { isUser, isPicture, avatarStyle, seed, message } = this.props.args;
+    const { isUser, isPicture, avatarStyle, seed, message, answers } = this.props.args;
     const avatarUrl = `https://avatars.dicebear.com/api/${avatarStyle}/${seed}.svg`
 
     // Streamlit sends us a theme object via props that we can use to ensure
@@ -59,6 +59,25 @@ class Chat extends StreamlitComponentBase {
         &:last-child {
           border-radius: ${props.isUser ? '10px 1px 10px 10px' : '1px 10px 10px 10px'};
         }
+        & * {
+          max-width: 100%;
+        }
+      `
+    })
+    const AnswerBubble = styled.div({
+      display: 'block',
+      background: theme.secondaryBackgroundColor,
+      border: '1px solid transparent',
+      borderRadius: '10px 10px 10px 10px',
+      padding: '10px 14px',
+      margin: '1px 5px',
+      maxWidth: '70%',
+      width: 'fit-content',
+      marginBottom: '-10px',
+      marginRight: '10px !important',
+      opacity: '0.5'
+    }, () => {
+      return css`
         & * {
           max-width: 100%;
         }
@@ -113,6 +132,17 @@ class Chat extends StreamlitComponentBase {
         }
       `
     })
+    const BubbleImg = styled.img({
+      maxWidth: '70%',
+      maxHeight: '350px',
+      display: 'block',
+      borderRadius: '10px 10px 10px 10px',
+      margin: '1px 5px',
+      marginBottom: '-10px',
+      marginRight: '10px !important',
+      opacity: '0.6',
+      marginLeft: 'auto'
+    })
 
     // The message variable could be an array of strings or a single string.
     // If it's an array, we'll render each element as a separate message.
@@ -120,10 +150,28 @@ class Chat extends StreamlitComponentBase {
     let messages: ReactNode[] | ReactNode = []
     if (Array.isArray(message)) {
       messages = message.map((m: string, i: number) => {
+        let msg
         if (isPicture[i])
-          return <Img onLoad={() => Streamlit.setFrameHeight()} key={i} src={m} isUser={isUser} />
+          msg = <Img onLoad={() => Streamlit.setFrameHeight()} key={i} src={m} isUser={isUser} />
+        else
+          msg = <Message isUser={isUser} key={i}>{m}</Message>
 
-        return <Message isUser={isUser} key={i}>{m}</Message>
+        if (answers != null && i in answers) {
+          let replied_to
+          // TODO: this is not safe at all
+          if (!answers[i].startsWith("data:image/jpeg;base64")) {
+            replied_to = <AnswerBubble key={"answers" + i}>{answers[i]}</AnswerBubble>
+          } else {
+            replied_to = <BubbleImg onLoad={() => Streamlit.setFrameHeight()} key={"bubble_image" + i} src={answers[i]} />
+          }
+
+          msg = [
+            replied_to,
+            msg
+          ]
+        }
+
+        return msg
       })
     } else {
       if (isPicture)

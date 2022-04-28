@@ -13,7 +13,7 @@ message("Hello, how are you?", key=1)
 message([
     "Really good",
     "you?",
-], is_user=True, key=2)
+], is_user=True, key=2, answers={1: "Hello, how are you?"})
 
 message([
     "I'm fine",

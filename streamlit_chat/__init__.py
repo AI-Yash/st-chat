@@ -1,9 +1,9 @@
 import os
-from typing import List, Literal, Optional, Union
+from typing import Dict, List, Literal, Optional, Union
 
 import streamlit.components.v1 as components
 
-_RELEASE = False
+_RELEASE = True
 COMPONENT_NAME = "streamlit_chat"
 
 if _RELEASE:  # use the build instead of development if release is true
@@ -50,6 +50,7 @@ def message(message: Union[List[str], str],
             is_picture: Optional[Union[bool, List[bool]]] = False,
             avatar_style: Optional[AvatarStyle] = None,
             seed: Optional[Union[int, str]] = 42,
+            answers: Optional[Dict[int, str]] = None,
             key: Optional[str] = None):
     """
     Creates a new instance of streamlit-chat component
@@ -70,6 +71,9 @@ def message(message: Union[List[str], str],
         st-chat uses https://avatars.dicebear.com/styles for the avatar
     seed: int or str
         The seed for choosing the avatar to be used, default is 42.
+    answers: dict of int => str
+        Which message does this one answers.
+        Puts an "answer bubble" next to the message
     key: str or None
         An optional key that uniquely identifies this component. If this is
         None, and the component's arguments are changed, the component will
@@ -80,7 +84,7 @@ def message(message: Union[List[str], str],
     if not avatar_style:
         avatar_style = "pixel-art-neutral" if is_user else "bottts"
 
-    _streamlit_chat(message=message, seed=seed, isUser=is_user, isPicture=is_picture, avatarStyle=avatar_style, key=key)
+    _streamlit_chat(message=message, seed=seed, isUser=is_user, isPicture=is_picture, avatarStyle=avatar_style, key=key, answers=answers)
 
 
 if not _RELEASE:
@@ -91,7 +95,9 @@ if not _RELEASE:
     A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent. Designed to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
     """
 
-    message("Hello, I am a Chatbot, how may I help you?")
-    message("Hey, what's a chatbot?", is_user=True)
-    message(long_message)
-    st.text_input("Message:")
+    message("Hello, how are you?", key=1)
+
+    message([
+        "Really good",
+        "you?",
+    ], is_user=True, key=2, answers={1: "Hello, how are you?"})

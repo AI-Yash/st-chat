@@ -1,7 +1,7 @@
-import streamlit.components.v1 as components
 import os
 from typing import List, Literal, Optional, Union
 
+import streamlit.components.v1 as components
 
 _RELEASE = False
 COMPONENT_NAME = "streamlit_chat"
@@ -84,7 +84,8 @@ def message(message: Union[List[str], str],
 
 
 if not _RELEASE:
-    import streamlit as st  
+    import streamlit as st
+
     # testing
     long_message = """
     A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent. Designed to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.

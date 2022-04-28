@@ -98,6 +98,7 @@ class Chat extends StreamlitComponentBase {
 
     const Img = styled.img({
       maxWidth: '70%',
+      maxHeight: '350px',
       display: 'block',
       borderRadius: '1px 10px 10px 1px',
       margin: '1px 5px'

@@ -3,7 +3,7 @@ import os
 from typing import Literal, Optional, Union
 
 
-_RELEASE = True
+_RELEASE = False
 COMPONENT_NAME = "streamlit_chat"
 
 if _RELEASE:  # use the build instead of development if release is true

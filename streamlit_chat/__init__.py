@@ -45,10 +45,27 @@ AvatarStyle = Literal[
     "personas",
 ]
 
+def get_avatar_url(avatar_style: AvatarStyle, seed: Union[int, str]):
+    """
+    Returns the url for the avatar of the sender of message
+
+    Parameters
+    ----------
+    avatar_style: Literal
+        The style for the avatar of the sender of message
+    seed: int or str
+        The seed for choosing the avatar to be used
+
+    Returns: str
+        The url for the avatar of the sender of message
+    """
+    return f"https://avatars.dicebear.com/api/{avatar_style}/{seed}.svg"
+
 def message(message: str, 
             is_user: Optional[bool] = False, 
             avatar_style: Optional[AvatarStyle] = None,
             seed: Optional[Union[int, str]] = 42,
+            avatar_url: Optional[str] = None,
             key: Optional[str] = None):
     """
     Creates a new instance of streamlit-chat component
@@ -76,7 +93,9 @@ def message(message: str,
     if not avatar_style:
         avatar_style = "pixel-art-neutral" if is_user else "bottts"
 
-    _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key)
+    avatar_url = avatar_url if avatar_url else get_avatar_url(avatar_style, seed)
+
+    _streamlit_chat(message=message, isUser=is_user, avatarUrl=avatar_url, key=key)
 
 
 if not _RELEASE:

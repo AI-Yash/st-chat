@@ -12,7 +12,14 @@ import { css } from '@emotion/react'
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
     const { isUser, avatarStyle, seed, message } = this.props.args;
-    const avatarUrl = `https://avatars.dicebear.com/api/${avatarStyle}/${seed}.svg`
+    let avatarUrl
+    if (avatarStyle.startsWith("https")) {
+      avatarUrl = avatarStyle
+    } else if (avatarStyle.startsWith("data:image")) {
+      avatarUrl = avatarStyle
+    } else {
+      avatarUrl = `https://avatars.dicebear.com/api/${avatarStyle}/${seed}.svg`
+    }
     
     // Streamlit sends us a theme object via props that we can use to ensure
     // that our component has visuals that match the active theme in a

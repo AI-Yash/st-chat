@@ -3,7 +3,7 @@ from typing import Literal, Optional, Union
 
 import streamlit.components.v1 as components
 
-_RELEASE = True
+_RELEASE = False
 COMPONENT_NAME = "streamlit_chat"
 
 if _RELEASE:  # use the build instead of development if release is true
@@ -88,6 +88,6 @@ if not _RELEASE:
     """
 
     message("Hello, I am a Chatbot, how may I help you?")
-    message("Hey, what's a chatbot?", is_user=True)
-    message(long_message)
+    message("Hey, what's a chatbot?", is_user=True, avatar_style="https://icons.getbootstrap.com/assets/icons/person-circle.svg")
+    message(long_message, avatar_style="https://twemoji.maxcdn.com/v/latest/72x72/1f1ec-1f1f7.png")
     st.text_input("Message:")

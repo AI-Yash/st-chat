@@ -35,7 +35,7 @@ class Chat extends StreamlitComponentBase {
     // styles for the avatar image
     const Avatar = styled.img({
       border: `1px solid transparent`,
-      borderRadius: '50%',
+      // borderRadius: '50%',
       height: '3rem',
       width: '3rem',
       margin: 0

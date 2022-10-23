@@ -38,7 +38,7 @@ class Chat extends StreamlitComponentBase {
       // borderRadius: '50%',
       height: '3rem',
       width: '3rem',
-      margin: 2,
+      margin: 0,
     })
     
     // styles for the message box

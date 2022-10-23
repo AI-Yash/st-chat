@@ -82,12 +82,28 @@ def message(message: str,
 if not _RELEASE:
     import streamlit as st
 
+    chatlog_placeholder = st.empty()
+    user_input_placeholder = st.empty()
+    persona_selection_placeholder = st.empty()
+
+
     # testing
     long_message = """
     A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent. Designed to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
     """
+    user_avatar = "https://twemoji.maxcdn.com/v/latest/72x72/1f464.png"
+    bot_avatar = "https://twemoji.maxcdn.com/v/latest/72x72/1f1ec-1f1f7.png"
+    with open("styles.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    message("Hello, I am a Chatbot, how may I help you?")
-    message("Hey, what's a chatbot?", is_user=True, avatar_style="https://icons.getbootstrap.com/assets/icons/person-circle.svg")
-    message(long_message, avatar_style="https://twemoji.maxcdn.com/v/latest/72x72/1f1ec-1f1f7.png")
-    st.text_input("Message:")
+    with chatlog_placeholder.container():
+
+        message("Hello, I am a Chatbot, how may I help you?")
+        message("Hey, what's a chatbot?", is_user=True, avatar_style=user_avatar)
+        message(long_message, avatar_style=bot_avatar)
+        for i in range(10):
+            if i % 2 == 0: message(f"{i}", is_user=True, avatar_style=user_avatar)
+            else: message(f"bot {i}", is_user=False, avatar_style=bot_avatar)
+    
+    with user_input_placeholder.container():
+        st.text_input("Message:")

@@ -68,6 +68,7 @@ class Chat extends StreamlitComponentBase {
           & > div {
             text-align: right;
           }
+          padding-right: 5px;
         `
       }
       return css``

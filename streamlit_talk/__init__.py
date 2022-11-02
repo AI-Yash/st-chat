@@ -4,31 +4,27 @@ from typing import Literal, Optional, Union
 import streamlit.components.v1 as components
 
 _RELEASE = True
-COMPONENT_NAME = "streamlit_chat"
+COMPONENT_NAME = "streamlit_talk"
 
 if _RELEASE:  # use the build instead of development if release is true
     root_dir = os.path.dirname(os.path.abspath(__file__))
     build_dir = os.path.join(root_dir, "frontend/build")
 
-    _streamlit_chat = components.declare_component(
-        COMPONENT_NAME,
-        path = build_dir
-    )
+    streamlit_talk = components.declare_component(COMPONENT_NAME, path=build_dir)
 else:
-    _streamlit_chat = components.declare_component(
-        COMPONENT_NAME,
-        url = "http://localhost:3000"
+    streamlit_talk = components.declare_component(
+        COMPONENT_NAME, url="http://localhost:3000"
     )
 
 # data type for avatar style
-AvatarStyle = Literal[ 
-    "adventurer", 
-    "adventurer-neutral", 
+AvatarStyle = Literal[
+    "adventurer",
+    "adventurer-neutral",
     "avataaars",
     "big-ears",
     "big-ears-neutral",
     "big-smile",
-    "bottts", 
+    "bottts",
     "croodles",
     "croodles-neutral",
     "female",
@@ -45,11 +41,14 @@ AvatarStyle = Literal[
     "personas",
 ]
 
-def message(message: str, 
-            is_user: Optional[bool] = False, 
-            avatar_style: Optional[AvatarStyle] = None,
-            seed: Optional[Union[int, str]] = 42,
-            key: Optional[str] = None):
+
+def message(
+    message: str,
+    is_user: Optional[bool] = False,
+    avatar_style: Optional[AvatarStyle] = None,
+    seed: Optional[Union[int, str]] = 42,
+    key: Optional[str] = None,
+):
     """
     Creates a new instance of streamlit-chat component
 
@@ -57,8 +56,8 @@ def message(message: str,
     ----------
     message: str
         The message to be displayed in the component
-    is_user: bool 
-        if the sender of the message is user, if `True` will align the 
+    is_user: bool
+        if the sender of the message is user, if `True` will align the
         message to right, default is False.
     avatar_style: Literal or None
         The style for the avatar of the sender of message, default is bottts
@@ -76,7 +75,9 @@ def message(message: str,
     if not avatar_style:
         avatar_style = "pixel-art-neutral" if is_user else "bottts"
 
-    _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key)
+    _streamlit_talk(
+        message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key
+    )
 
 
 if not _RELEASE:
@@ -85,7 +86,6 @@ if not _RELEASE:
     chatlog_placeholder = st.empty()
     user_input_placeholder = st.empty()
     persona_selection_placeholder = st.empty()
-
 
     # testing
     long_message = """
@@ -102,8 +102,10 @@ if not _RELEASE:
         message("Hey, what's a chatbot?", is_user=True, avatar_style=user_avatar)
         message(long_message, avatar_style=bot_avatar)
         for i in range(10):
-            if i % 2 == 0: message(f"{i}", is_user=True, avatar_style=user_avatar)
-            else: message(f"bot {i}", is_user=False, avatar_style=bot_avatar)
-    
+            if i % 2 == 0:
+                message(f"{i}", is_user=True, avatar_style=user_avatar)
+            else:
+                message(f"bot {i}", is_user=False, avatar_style=bot_avatar)
+
     with user_input_placeholder.container():
         st.text_input("Message:")

@@ -27,7 +27,7 @@ jobs:
       # Runs a single command using the runners shell
       # - name: install node dependencies
       #   run: |
-      #     cd streamlit_chat/frontend
+      #     cd streamlit_talk/frontend
       #     npm install
       
       # - name: build frontend

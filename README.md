@@ -15,7 +15,7 @@ Install `streamlit-talk` with pip
 pip install streamlit-talk
 ```
 
-usage, import the `message` function from `streamlit_chat`
+usage, import the `message` function from `streamlit_talk`
 ```py
 import streamlit as st
 from streamlit_talk import message

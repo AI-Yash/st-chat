@@ -1,1 +1,1 @@
-recursive-include streamlit_chat/frontend/build *
+recursive-include streamlit_talk/frontend/build *

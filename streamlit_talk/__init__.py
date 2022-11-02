@@ -10,9 +10,9 @@ if _RELEASE:  # use the build instead of development if release is true
     root_dir = os.path.dirname(os.path.abspath(__file__))
     build_dir = os.path.join(root_dir, "frontend/build")
 
-    streamlit_talk = components.declare_component(COMPONENT_NAME, path=build_dir)
+    _streamlit_talk = components.declare_component(COMPONENT_NAME, path=build_dir)
 else:
-    streamlit_talk = components.declare_component(
+    _streamlit_talk = components.declare_component(
         COMPONENT_NAME, url="http://localhost:3000"
     )
 

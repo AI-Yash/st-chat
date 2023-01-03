@@ -20,3 +20,6 @@ message("My message")
 message("Hello bot!", is_user=True)  # align's the message to the right
 ```
    
+### Screenshot
+
+![chatbot-og](https://user-images.githubusercontent.com/90775147/210397700-5ab9e00d-a61b-4bc9-a34a-b5bd4454b084.png)

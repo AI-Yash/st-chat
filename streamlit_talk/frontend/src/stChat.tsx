@@ -49,7 +49,8 @@ class Chat extends StreamlitComponentBase {
       borderRadius: '10px',
       padding: '10px 14px',
       margin: '5px 20px',
-      maxWidth: '70%'
+      maxWidth: '70%',
+      whiteSpace: 'pre-wrap',
     })
     
     // styles for the container

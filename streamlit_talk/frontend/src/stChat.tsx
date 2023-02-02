@@ -7,11 +7,12 @@ import {
 import React, { ReactNode } from "react"
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import Typewriter from 'typewriter-effect'
 
 
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
-    const { isUser, avatarStyle, seed, message } = this.props.args;
+    const { isUser, avatarStyle, seed, message, useTypewriter } = this.props.args;
     let avatarUrl
     if (avatarStyle.startsWith("https")) {
       avatarUrl = avatarStyle
@@ -75,13 +76,55 @@ class Chat extends StreamlitComponentBase {
       return css``
     })
 
-    return (
-      <Chat isUser={isUser}>
-        <Avatar src={avatarUrl} alt="profile" draggable="false"/>
-        <Message>{message}</Message>
-      </Chat>
-    )
-  }
+    // custom callback
+    var refreshStreamlitAndCreateNode = function(character: string) {
+      Streamlit.setFrameHeight();
+      return document.createTextNode(character)
+    }
+
+    if (!isUser && useTypewriter) {
+      return (
+        <Chat isUser={isUser}>
+          <Avatar src={avatarUrl} alt="profile" draggable="false"/>
+          <Message>
+            <Typewriter
+              options={{
+                delay: 10,
+                cursor: '',
+                onCreateTextNode: refreshStreamlitAndCreateNode
+              }}
+              onInit={typewriter => {
+                typewriter
+                  .typeString(
+                    message
+                  )
+                  .callFunction(state => {
+                    typewriter.stop();
+                  })
+                  .start();
+              }}
+            />
+          </Message>
+        </Chat>
+      )
+    } else if (!isUser && !useTypewriter) {
+      return (
+        <Chat isUser={isUser}>
+          <Avatar src={avatarUrl} alt="profile" draggable="false"/>
+          <Message>
+            {message}
+          </Message>
+        </Chat>
+      )
+    } else {
+      return (
+        <Chat isUser={isUser}>
+          <Avatar src={avatarUrl} alt="profile" draggable="false"/>
+          <Message>{message}</Message>
+        </Chat>
+      )
+    }
+  } 
 }
 
 export default withStreamlitConnection(Chat);

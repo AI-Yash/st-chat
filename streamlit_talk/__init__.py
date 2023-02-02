@@ -48,6 +48,7 @@ def message(
     avatar_style: Optional[AvatarStyle] = None,
     seed: Optional[Union[int, str]] = 42,
     key: Optional[str] = None,
+    use_typewriter: bool = False,
 ):
     """
     Creates a new instance of streamlit-chat component
@@ -76,7 +77,8 @@ def message(
         avatar_style = "pixel-art-neutral" if is_user else "bottts"
 
     _streamlit_talk(
-        message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key
+        message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key,
+        useTypewriter=use_typewriter
     )
 
 
@@ -88,8 +90,7 @@ if not _RELEASE:
     persona_selection_placeholder = st.empty()
 
     # testing
-    long_message = """
-    A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent.\n\nDesigned to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
+    long_message = """A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent.\n\nDesigned to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
     """
     user_avatar = "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f464.png"
     bot_avatar = "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f1ec-1f1f7.png"
@@ -98,7 +99,7 @@ if not _RELEASE:
 
     with chatlog_placeholder.container():
 
-        message("Hello, I am a Chatbot, how may I help you?")
+        message("Hello, I am a Chatbot, how may I help you? Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum", use_typewriter=True)
         message("Hey, what's a chatbot?", is_user=True, avatar_style=user_avatar)
         message(long_message, avatar_style=bot_avatar)
         for i in range(10):

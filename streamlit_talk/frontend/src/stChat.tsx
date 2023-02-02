@@ -12,7 +12,7 @@ import Typewriter from 'typewriter-effect'
 
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
-    const { isUser, avatarStyle, seed, message, useTypewriter } = this.props.args;
+    const { isUser, avatarStyle, seed, initial_text, complete_text, useTypewriter } = this.props.args;
     let avatarUrl
     if (avatarStyle.startsWith("https")) {
       avatarUrl = avatarStyle
@@ -95,8 +95,9 @@ class Chat extends StreamlitComponentBase {
               }}
               onInit={typewriter => {
                 typewriter
+                  .pasteString(initial_text, null)
                   .typeString(
-                    message
+                    complete_text.split(initial_text).join('')
                   )
                   .callFunction(state => {
                     typewriter.stop();
@@ -112,7 +113,7 @@ class Chat extends StreamlitComponentBase {
         <Chat isUser={isUser}>
           <Avatar src={avatarUrl} alt="profile" draggable="false"/>
           <Message>
-            {message}
+            {complete_text}
           </Message>
         </Chat>
       )
@@ -120,7 +121,7 @@ class Chat extends StreamlitComponentBase {
       return (
         <Chat isUser={isUser}>
           <Avatar src={avatarUrl} alt="profile" draggable="false"/>
-          <Message>{message}</Message>
+          <Message>{complete_text}</Message>
         </Chat>
       )
     }

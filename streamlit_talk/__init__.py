@@ -43,7 +43,8 @@ AvatarStyle = Literal[
 
 
 def message(
-    message: str,
+    complete_text: str,
+    initial_text: str = "",
     is_user: Optional[bool] = False,
     avatar_style: Optional[AvatarStyle] = None,
     seed: Optional[Union[int, str]] = 42,
@@ -77,7 +78,7 @@ def message(
         avatar_style = "pixel-art-neutral" if is_user else "bottts"
 
     _streamlit_talk(
-        message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key,
+        complete_text=complete_text, initial_text=initial_text, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key,
         useTypewriter=use_typewriter
     )
 
@@ -98,8 +99,7 @@ if not _RELEASE:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
     with chatlog_placeholder.container():
-
-        message("Hello, I am a Chatbot, how may I help you? Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum", use_typewriter=True)
+        message(initial_text="Hello, I am a Chatbot,", complete_text="Hello, I am a Chatbot, how may I help you?", use_typewriter=True)
         message("Hey, what's a chatbot?", is_user=True, avatar_style=user_avatar)
         message(long_message, avatar_style=bot_avatar)
         for i in range(10):

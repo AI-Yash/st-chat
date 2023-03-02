@@ -48,6 +48,7 @@ AvatarStyle = Literal[
 def message(message: str, 
             is_user: Optional[bool] = False, 
             avatar_style: Optional[AvatarStyle] = None,
+            avatar_self_hosted: bool = True,
             seed: Optional[Union[int, str]] = 42,
             key: Optional[str] = None):
     """
@@ -76,7 +77,7 @@ def message(message: str,
     if not avatar_style:
         avatar_style = "pixel-art-neutral" if is_user else "bottts"
 
-    _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key)
+    _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, avatarSelfHosted=avatar_self_hosted, key=key)
 
 
 if not _RELEASE:

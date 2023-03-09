@@ -1,6 +1,7 @@
 import streamlit.components.v1 as components
 import os
-from typing import Literal, Optional, Union
+from typing import Optional, Union
+from typing_extensions import Literal
 
 
 _RELEASE = True

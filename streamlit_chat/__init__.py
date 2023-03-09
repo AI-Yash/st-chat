@@ -1,7 +1,11 @@
 import streamlit.components.v1 as components
 import os
 from typing import Optional, Union
-from typing_extensions import Literal
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 
 _RELEASE = True
@@ -15,6 +19,7 @@ if _RELEASE:  # use the build instead of development if release is true
         COMPONENT_NAME,
         path = build_dir
     )
+    print("using build")
 else:
     _streamlit_chat = components.declare_component(
         COMPONENT_NAME,
@@ -22,34 +27,38 @@ else:
     )
 
 # data type for avatar style
-AvatarStyle = Literal[ 
-    "adventurer", 
-    "adventurer-neutral", 
+AvatarStyle = Literal[
+    "adventurer",
+    "adventurer-neutral",
     "avataaars",
+    "avataaars-neutral",
     "big-ears",
     "big-ears-neutral",
     "big-smile",
-    "bottts", 
+    "bottts",
+    "bottts-neutral",
     "croodles",
     "croodles-neutral",
-    "female",
-    "gridy",
-    "human",
+    "fun-emoji",
+    "icons",
     "identicon",
     "initials",
-    "jdenticon",
-    "male",
+    "lorelei",
+    "lorelei-neutral",
     "micah",
     "miniavs",
+    "open-peeps",
+    "personas",
     "pixel-art",
     "pixel-art-neutral",
-    "personas",
+    "shapes",
+    "thumbs",
 ]
 
 def message(message: str, 
             is_user: Optional[bool] = False, 
             avatar_style: Optional[AvatarStyle] = None,
-            seed: Optional[Union[int, str]] = 42,
+            seed: Optional[Union[int, str]] = 88,
             key: Optional[str] = None):
     """
     Creates a new instance of streamlit-chat component
@@ -64,7 +73,7 @@ def message(message: str,
     avatar_style: Literal or None
         The style for the avatar of the sender of message, default is bottts
         for not user, and pixel-art-neutral for user.
-        st-chat uses https://avatars.dicebear.com/styles for the avatar
+        st-chat uses https://www.dicebear.com/styles for the avatar
     seed: int or str
         The seed for choosing the avatar to be used, default is 42.
     key: str or None
@@ -75,7 +84,7 @@ def message(message: str,
     Returns: None
     """
     if not avatar_style:
-        avatar_style = "pixel-art-neutral" if is_user else "bottts"
+        avatar_style = "fun-emoji" if is_user else "bottts"
 
     _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key)
 
@@ -83,11 +92,12 @@ def message(message: str,
 if not _RELEASE:
     import streamlit as st  
     # testing
-    long_message = """
-    A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent. Designed to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
+    long_message = """A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent. 
+    Designed to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. 
+    The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
     """
 
     message("Hello, I am a Chatbot, how may I help you?")
-    message("Hey, what's a chatbot?", is_user=True)
+    message("Hey, \nwhat's a chatbot?", is_user=True)
     message(long_message)
     st.text_input("Message:")

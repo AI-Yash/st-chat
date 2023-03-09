@@ -11,6 +11,7 @@ import { css } from '@emotion/react'
 
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
+    Streamlit.setFrameHeight(window.innerHeight)
     const { isUser, avatarStyle, seed, message } = this.props.args;
     // const avatarUrl = `https://avatars.dicebear.com/api/${avatarStyle}/${seed}.svg`
     const avatarUrl = `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
@@ -43,7 +44,8 @@ class Chat extends StreamlitComponentBase {
       borderRadius: '10px',
       padding: '10px 14px',
       margin: '5px 20px',
-      maxWidth: '70%'
+      maxWidth: '70%',
+      whiteSpace: 'pre-line'
     })
     
     // styles for the container

@@ -19,7 +19,6 @@ if _RELEASE:  # use the build instead of development if release is true
         COMPONENT_NAME,
         path = build_dir
     )
-    print("using build")
 else:
     _streamlit_chat = components.declare_component(
         COMPONENT_NAME,

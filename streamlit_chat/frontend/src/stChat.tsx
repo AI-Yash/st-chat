@@ -7,6 +7,7 @@ import {
 import React, { ReactNode } from "react"
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import ReactHtmlParser from 'react-html-parser'
 
 
 class Chat extends StreamlitComponentBase {
@@ -71,7 +72,7 @@ class Chat extends StreamlitComponentBase {
     return (
       <Chat isUser={isUser}>
         <Avatar src={avatarUrl} alt="profile" draggable="false"/>
-        <Message>{message}</Message>
+        <Message>{ReactHtmlParser(message)}</Message>
       </Chat>
     )
   }

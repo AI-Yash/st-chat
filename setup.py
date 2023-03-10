@@ -3,12 +3,11 @@ import setuptools
 with open('README.md') as readme_file:
     readme = readme_file.read()
 
-
 setuptools.setup(
     name="streamlit-chat",
     version="0.0.2.2",
     author="Yash Pravin Pawar, Yash Vardhan Kapil",
-    author_email="yashpawarp@gmail.com, workid169@gmail.com",
+    author_email="yashpawarp@gmail.com",
     description="A streamlit component, to make chatbots",
     long_description=readme,
     long_description_content_type="text/markdown",

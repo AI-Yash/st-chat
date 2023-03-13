@@ -58,7 +58,9 @@ def message(message: str,
             is_user: Optional[bool] = False, 
             avatar_style: Optional[AvatarStyle] = None,
             seed: Optional[Union[int, str]] = 88,
-            key: Optional[str] = None):
+            key: Optional[str] = None,
+            allow_html: Optional[bool] = False,
+            is_table: Optional[bool] = False):
     """
     Creates a new instance of streamlit-chat component
 
@@ -85,7 +87,7 @@ def message(message: str,
     if not avatar_style:
         avatar_style = "fun-emoji" if is_user else "bottts"
 
-    _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key)
+    _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key, allow_html=allow_html, is_table=is_table)
 
 
 if not _RELEASE:

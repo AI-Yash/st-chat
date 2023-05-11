@@ -8,10 +8,11 @@ except ImportError:
     from typing_extensions import Literal
 
 
-_RELEASE = True
+_RELEASE = False
 COMPONENT_NAME = "streamlit_chat"
 
-if _RELEASE:  # use the build instead of development if release is true
+# use the build instead of development if release is true
+if _RELEASE:
     root_dir = os.path.dirname(os.path.abspath(__file__))
     build_dir = os.path.join(root_dir, "frontend/build")
 
@@ -22,7 +23,7 @@ if _RELEASE:  # use the build instead of development if release is true
 else:
     _streamlit_chat = components.declare_component(
         COMPONENT_NAME,
-        url = "http://localhost:3001"
+        url = "http://localhost:3000"
     )
 
 # data type for avatar style
@@ -57,6 +58,7 @@ AvatarStyle = Literal[
 def message(message: str, 
             is_user: Optional[bool] = False, 
             avatar_style: Optional[AvatarStyle] = None,
+            logo: Optional[str]=None,
             seed: Optional[Union[int, str]] = 88,
             key: Optional[str] = None):
     """
@@ -73,6 +75,9 @@ def message(message: str,
         The style for the avatar of the sender of message, default is bottts
         for not user, and pixel-art-neutral for user.
         st-chat uses https://www.dicebear.com/styles for the avatar
+    logo: Literal or None
+        The logo to be used if we do not wish Avatars to be used. This is useful
+        if we want the chatbot to be branded
     seed: int or str
         The seed for choosing the avatar to be used, default is 42.
     key: str or None
@@ -82,20 +87,21 @@ def message(message: str,
 
     Returns: None
     """
-    if not avatar_style:
-        avatar_style = "fun-emoji" if is_user else "bottts"
-
-    _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key)
+    if logo:
+        _streamlit_chat(message=message, seed=seed, isUser=is_user, logo=logo, key=key)
+    else:
+        if not avatar_style:
+            avatar_style = "fun-emoji" if is_user else "bottts"
+        _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key)
 
 
 if not _RELEASE:
     import streamlit as st  
-    # testing
+
     long_message = """A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent. 
     Designed to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. 
     The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
     """
-
     message("Hello, I am a Chatbot, how may I help you?")
     message("Hey, \nwhat's a chatbot?", is_user=True)
     message(long_message)

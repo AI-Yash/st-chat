@@ -131,3 +131,4 @@ dmypy.json
 # frontend
 node_modules/
 .prettierrc
+.DS_Store

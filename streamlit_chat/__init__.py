@@ -60,7 +60,9 @@ def message(message: str,
             avatar_style: Optional[AvatarStyle] = None,
             logo: Optional[str]=None,
             seed: Optional[Union[int, str]] = 88,
-            key: Optional[str] = None):
+            key: Optional[str] = None,
+            allow_html: Optional[bool] = False,
+            is_table: Optional[bool] = False):
     """
     Creates a new instance of streamlit-chat component
 
@@ -87,6 +89,7 @@ def message(message: str,
 
     Returns: None
     """
+
     if logo:
         _streamlit_chat(message=message, seed=seed, isUser=is_user, logo=logo, key=key)
     else:

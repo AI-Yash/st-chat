@@ -22,8 +22,8 @@ import 'highlight.js/styles/monokai-sublime.css'
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
     Streamlit.setFrameHeight(window.innerHeight)
-    const { isUser, avatarStyle, seed, message, allow_html, is_table } = this.props.args;
-    const avatarUrl = `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
+    const { isUser, avatarStyle, seed, message, logo, allow_html, is_table } = this.props.args;
+    const avatarUrl = !!logo ? logo: `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
     
     // Streamlit sends us a theme object via props that we can use to ensure
     // that our component has visuals that match the active theme in a

@@ -4,15 +4,26 @@ import {
   StreamlitComponentBase,
   withStreamlitConnection,
 } from "streamlit-component-lib"
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 
+import ReactMarkdown from "react-markdown"
+import remarkMath from "remark-math"
+import rehypeKatex from "rehype-katex"
+import rehypeRaw from "rehype-raw"
+import remarkGfm from "remark-gfm"
+import rehypeHighlight from "rehype-highlight"
+
+import 'katex/dist/katex.min.css'
+import 'highlight.js/styles/monokai-sublime.css'
+import './stChat.css'
 
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
     Streamlit.setFrameHeight(window.innerHeight)
-    const { isUser, avatarStyle, seed, message, logo } = this.props.args;
+    const { isUser, avatarStyle, seed, message, allow_html, is_table, logo } = this.props.args
+    // const { isUser, avatarStyle, seed, message, logo } = this.props.args;
     const avatarUrl = !!logo ? logo: `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
     
     // Streamlit sends us a theme object via props that we can use to ensure
@@ -41,10 +52,11 @@ class Chat extends StreamlitComponentBase {
       background: theme.secondaryBackgroundColor,
       border: '1px solid transparent',
       borderRadius: '10px',
-      padding: '10px 14px',
-      margin: '5px 20px',
+      padding: '10px 10px',
+      margin: '5px 5px',
       maxWidth: '70%',
-      whiteSpace: 'pre-line'
+      minHeight: '1.5rem',
+      whiteSpace: !is_table ? 'pre-line' : 'normal',
     })
     
     // styles for the container
@@ -68,10 +80,26 @@ class Chat extends StreamlitComponentBase {
       return css``
     })
 
+    const remarkPlugins = [
+      remarkMath, 
+      remarkGfm
+    ]
+    const rehypePlugins = [
+      rehypeKatex,
+      ...(allow_html ? [rehypeRaw] : [])
+    ]
+
     return (
       <Chat isUser={isUser}>
         <Avatar src={avatarUrl} alt="profile" draggable="false"/>
-        <Message>{message}</Message>
+        <Message className='msg'>
+          <ReactMarkdown 
+            remarkPlugins={remarkPlugins}
+            rehypePlugins={[...rehypePlugins, [rehypeHighlight, {detect: true}]]}
+          >
+            {message}
+          </ReactMarkdown>
+        </Message>
       </Chat>
     )
   }

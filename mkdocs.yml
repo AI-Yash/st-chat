@@ -1,1 +1,25 @@
-site_name: My Docs
+site_name: Streamlit Chat
+theme:
+  name: material
+  
+  palette:
+    primary: teal
+    accent: light blue
+    scheme: slate
+  
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/robot
+
+  features:
+    - navigation.tabs
+    - navigation.sticky
+    - navigation.path
+
+nav:
+  - Home: index.md
+  - Create a Component: creating-streamlit-component.md 
+
+repo_url: https://github.com/AI-Yash/st-chat
+repo_name: Streamlit Chat
+edit_uri: ''

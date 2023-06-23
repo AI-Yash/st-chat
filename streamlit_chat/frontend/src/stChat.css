@@ -1,0 +1,15 @@
+#root {
+  margin: 0 auto;
+}
+
+.msg p {
+  margin-block: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid white;
+}

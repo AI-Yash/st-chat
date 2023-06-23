@@ -4,7 +4,7 @@ import {
   StreamlitComponentBase,
   withStreamlitConnection,
 } from "streamlit-component-lib"
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 
@@ -17,11 +17,12 @@ import rehypeHighlight from "rehype-highlight"
 
 import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/monokai-sublime.css'
-
+import './stChat.css'
 
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
     Streamlit.setFrameHeight(window.innerHeight)
+    // const { isUser, avatarStyle, seed, message, logo } = this.props.args;
     const { isUser, avatarStyle, seed, message, logo, allow_html, is_table } = this.props.args;
     const avatarUrl = !!logo ? logo: `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
     
@@ -51,10 +52,11 @@ class Chat extends StreamlitComponentBase {
       background: theme.secondaryBackgroundColor,
       border: '1px solid transparent',
       borderRadius: '10px',
-      padding: '10px 14px',
-      margin: '5px 20px',
+      padding: '10px 10px',
+      margin: '5px 5px',
       maxWidth: '70%',
-      whiteSpace: !is_table ? 'pre-line' : 'normal'
+      minHeight: '1.5rem',
+      whiteSpace: !is_table ? 'pre-line' : 'normal',
     })
     
     // styles for the container
@@ -91,7 +93,7 @@ class Chat extends StreamlitComponentBase {
     return (
       <Chat isUser={isUser}>
         <Avatar src={avatarUrl} alt="profile" draggable="false"/>
-        <Message>
+        <Message className='msg'>
           <ReactMarkdown 
             remarkPlugins={remarkPlugins}
             rehypePlugins={[...rehypePlugins, [rehypeHighlight, {detect: true}]]}

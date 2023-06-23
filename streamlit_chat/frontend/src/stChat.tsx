@@ -19,7 +19,6 @@ import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/monokai-sublime.css'
 import './stChat.css'
 
-
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
     Streamlit.setFrameHeight(window.innerHeight)

@@ -93,6 +93,7 @@ def message(message: str,
     
     Returns: None
     """
+
     if logo:
         _streamlit_chat(message=message, seed=seed, isUser=is_user, logo=logo, key=key, allow_html=allow_html, is_table=is_table)
     else:

@@ -19,11 +19,12 @@ import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/monokai-sublime.css'
 import './stChat.css'
 
+
 class Chat extends StreamlitComponentBase {
   public render = (): ReactNode => {
     Streamlit.setFrameHeight(window.innerHeight)
-    const { isUser, avatarStyle, seed, message, allow_html, is_table, logo } = this.props.args
     // const { isUser, avatarStyle, seed, message, logo } = this.props.args;
+    const { isUser, avatarStyle, seed, message, logo, allow_html, is_table } = this.props.args;
     const avatarUrl = !!logo ? logo: `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
     
     // Streamlit sends us a theme object via props that we can use to ensure
@@ -80,6 +81,7 @@ class Chat extends StreamlitComponentBase {
       return css``
     })
 
+    // Init React Markdown plugins
     const remarkPlugins = [
       remarkMath, 
       remarkGfm

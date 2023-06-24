@@ -4,7 +4,7 @@
 6. Streamline text display
 1. Copy to Clipboard
 2. container for ChatBox
-7. wait for next message (loader)
+7. wait for next message (Loader)
 
 import streamlit_chat as stc
 

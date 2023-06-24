@@ -8,23 +8,22 @@ import { ReactNode } from "react"
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 
-import ReactMarkdown from "react-markdown"
-import remarkMath from "remark-math"
-import rehypeKatex from "rehype-katex"
-import rehypeRaw from "rehype-raw"
-import remarkGfm from "remark-gfm"
-import rehypeHighlight from "rehype-highlight"
 
-import 'katex/dist/katex.min.css'
-import 'highlight.js/styles/monokai-sublime.css'
 import './stChat.css'
+import Avatar from "./avatar"
+import Message from "./message"
 
 class Chat extends StreamlitComponentBase {
+  public componentDidMount() {
+    let body = document.querySelector('body');
+    body?.style.setProperty('--md-primary-color', '#00FF00');
+  }
   public render = (): ReactNode => {
     Streamlit.setFrameHeight(window.innerHeight)
     // const { isUser, avatarStyle, seed, message, logo } = this.props.args;
     const { isUser, avatarStyle, seed, message, logo, allow_html, is_table } = this.props.args;
-    const avatarUrl = !!logo ? logo: `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
+    const avatarUrl: string = !!logo ? logo: `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
+    
     
     // Streamlit sends us a theme object via props that we can use to ensure
     // that our component has visuals that match the active theme in a
@@ -38,27 +37,14 @@ class Chat extends StreamlitComponentBase {
     }
     
     // styles for the avatar image
-    const Avatar = styled.img({
-      border: `1px solid transparent`,
-      borderRadius: '50%',
-      height: '3rem',
-      width: '3rem',
-      margin: 0
-    })
-    
-    // styles for the message box
-    const Message = styled.div({
-      display: 'inline-block',
-      background: theme.secondaryBackgroundColor,
-      border: '1px solid transparent',
-      borderRadius: '10px',
-      padding: '10px 10px',
-      margin: '5px 5px',
-      maxWidth: '70%',
-      minHeight: '1.5rem',
-      whiteSpace: !is_table ? 'pre-line' : 'normal',
-    })
-    
+    // const Avatar = styled.img({
+    //   border: `1px solid transparent`,
+    //   borderRadius: '50%',
+    //   height: '3rem',
+    //   width: '3rem',
+    //   margin: 0
+    // })
+       
     // styles for the container
     const Chat = styled.div({
       display: 'flex',
@@ -80,27 +66,12 @@ class Chat extends StreamlitComponentBase {
       return css``
     })
 
-    // Init React Markdown plugins
-    const remarkPlugins = [
-      remarkMath, 
-      remarkGfm
-    ]
-    const rehypePlugins = [
-      rehypeKatex,
-      ...(allow_html ? [rehypeRaw] : [])
-    ]
+    
 
     return (
       <Chat isUser={isUser}>
-        <Avatar src={avatarUrl} alt="profile" draggable="false"/>
-        <Message className='msg'>
-          <ReactMarkdown 
-            remarkPlugins={remarkPlugins}
-            rehypePlugins={[...rehypePlugins, [rehypeHighlight, {detect: true}]]}
-          >
-            {message}
-          </ReactMarkdown>
-        </Message>
+        <Avatar src={avatarUrl}/>
+        <Message is_table={is_table} message={message} allow_html={allow_html}/>
       </Chat>
     )
   }

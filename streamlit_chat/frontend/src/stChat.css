@@ -1,5 +1,31 @@
 #root {
+  --primary: ;
   margin: 0 auto;
+}
+
+.avatar {
+  border: 1px solid transparent;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  margin: 0;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.avatar img {
+  height: 100;
+}
+
+.msg {
+  display: inline-block;
+  background: var(--secondary-bg-color);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 10px;
+  margin: 5px 5px;
+  max-width: 70%;
+  min-height: 1.5rem;
 }
 
 .msg p {

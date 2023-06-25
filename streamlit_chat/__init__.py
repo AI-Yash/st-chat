@@ -10,6 +10,7 @@ except ImportError:
 
 _RELEASE = True
 COMPONENT_NAME = "streamlit_chat"
+NO_AVATAR: str = 'no-avatar'
 
 # use the build instead of development if release is true
 if _RELEASE:
@@ -53,6 +54,7 @@ AvatarStyle = Literal[
     "pixel-art-neutral",
     "shapes",
     "thumbs",
+    'no-avatar',
 ]
 
 def message(message: str, 

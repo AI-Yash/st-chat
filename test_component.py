@@ -1,4 +1,4 @@
-from streamlit_chat import message
+from streamlit_chat import message, NO_AVATAR
 import streamlit as st
 
 
@@ -40,6 +40,7 @@ console.log("Here is some JavaScript code")
 
 table_markdown = '''
 A Table:
+
 | Feature     | Support              |
 | ----------: | :------------------- |
 | CommonMark  | 100%                 |
@@ -49,6 +50,8 @@ A Table:
 long_message = """A chatbot or chatterbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent. 
 Designed to convincingly simulate the way a human would behave as a conversational partner, chatbot systems typically require continuous tuning and testing, and many in production remain unable to adequately converse, while none of them can pass the standard Turing test. 
 The term "ChatterBot" was originally coined by Michael Mauldin (creator of the first Verbot) in 1994 to describe these conversational programs.
+
+[streamlit website](https://streamlit.io)
 """
 
 def on_input_change():
@@ -89,12 +92,13 @@ if __name__ == '__main__':
 
     with chat_placeholder.container():    
         for i in range(len(st.session_state['generated'])):                
-            message(st.session_state['past'][i], is_user=True, key=f"{i}_user", allow_html = True)
+            message(st.session_state['past'][i], is_user=True, key=f"{i}_user")
             message(
                 st.session_state['generated'][i]['data'], 
                 key=f"{i}", 
                 allow_html=True,
                 is_table=st.session_state['generated'][i]['type']=='table',
+                avatar_style=NO_AVATAR
             )
         st.button("Clear message", on_click=on_btn_click)
 

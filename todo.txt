@@ -1,0 +1,35 @@
+3. local media 
+5. Disable user/bot avatar
+4. improve CSS for visual elements
+6. Streamline text display
+1. Copy to Clipboard
+2. container for ChatBox
+7. wait for next message (Loader)
+
+import streamlit_chat as stc
+
+config = {
+    'bot_avatar': False | 'url' | ('bottts', 80)
+}
+
+cb = stc.ChatBox(**config)
+
+cb.populate(user_res, bot_res, streamline=True, wait_for_msg=True, bot_first = True)
+
+# 2 api's 
+# 1 : user & bot responses in arrays/lists
+
+u: ['hi', 'i want ice cream', 'bye']
+b: ['hello, how may i help you', 'ice cream is not good']
+
+# 2 : single structured array/lists
+history:
+[
+    (stc.USER, 'content', 'text'),
+    (stc.BOT, 'url', 'image'),
+    (stc.BOT, 'content', 'html'),
+]
+
+hist = stc.History()
+hist.add_bot('content', 'type')
+hist.add_user('content', 'type')

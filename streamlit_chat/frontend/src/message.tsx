@@ -26,7 +26,7 @@ function Message(props: React.PropsWithChildren<{ is_table: boolean, message: st
         classList.push("msg-table")
 
     return (
-        <div className={classList.join(' ')} >
+        <div className={classList.join(' ')}>
             <ReactMarkdown
                 remarkPlugins={remarkPlugins}
                 rehypePlugins={[...rehypePlugins, [rehypeHighlight, { detect: true }]]}

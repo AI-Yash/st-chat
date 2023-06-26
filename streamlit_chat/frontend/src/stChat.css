@@ -26,6 +26,7 @@ body {
   color: var(--text-color);
   display: flex; 
   /* display: inline-block; */
+  background-color: var(--secondary-bg-color);
   height: 3rem;
   justify-content: center;
   margin: 3px;
@@ -52,11 +53,15 @@ body {
 
 .chat .msg::after {
   content: "";
-  top: 0;
-  position: absolute;
   border: 0.75em solid transparent;
   border-top-color: var(--secondary-bg-color);
   display: block;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+.chat.bot .msg::after {
   left: 3.1rem;
 }
 
@@ -71,6 +76,16 @@ body {
 
 .chat .msg a:hover {
   color: var(--primary-color);
+}
+
+.chat .msg * {
+  max-width: 100%;
+}
+
+.chat .msg img {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  margin-top: 5px;
 }
 
 .chat .msg.msg-table {
@@ -102,11 +117,147 @@ body {
   max-width: 85%;
 }
 
-.chat.no-avatar .msg::after {
+/* .chat.no-avatar .msg img {
+  max-width: 100%;
+  margin: auto;
+  display: block;
+} */
+
+.chat.no-avatar.bot .msg::after {
   left: 0.2rem;
 }
 
 .chat.no-avatar.user .msg::after {
   right: 0.2rem;
+}
+
+.chat .copy-button {
+  display: flex;
+  margin: auto 5px;
+  min-width: 13px;
+  height: 1rem;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.chat.bot .copy-button {
+  flex-direction: row;
+  text-align: left;
+}
+
+.chat .copy-button svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: var(--text-color);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 50;
+  transition: all 300ms ease-in-out;
+}
+
+.chat .copy-button span {
+  display: block;
+  width: 0;
+  overflow: hidden;
+  right: -1rem;
+  position: relative;
+  font-size: 0.75rem;
+  margin: 0 3px;
+  transition: width 300ms ease-in-out;
+}
+
+.chat.bot .copy-button span {
+  left: -1rem;
+  right: auto;
+}
+
+.chat .copy-button svg.clip {
+  stroke-dashoffset: 0;
+}
+
+.chat .copy-button svg.check {
+  stroke: green;
+  position: relative;
+  top: 0;
+  right: -1rem;
+  stroke-dashoffset: -50;
+}
+
+.chat.bot .copy-button svg.check {
+  right: auto;
+  left: -1rem;
+}
+
+.chat .copy-button:hover svg.clip {
+  stroke: var(--primary-color);
+}
+
+.msg pre {
+  position: relative;
+}
+
+.chat .msg .code-copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+.chat .msg .code-copy-btn .copy-button {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.chat .msg .code-copy-btn .copy-button span {
+  color: white;
+  right: -1rem;
   left: auto;
+}
+
+.chat .msg .code-copy-btn .copy-button svg.clip {
+  stroke: white;
+}
+
+.chat .msg .code-copy-btn .copy-button svg.check {
+  right: -1rem;
+  left: auto;
+}
+
+.chat .copy-button:hover span {
+  width: 3rem;
+  /* padding: 3px; */
+}
+
+.chat .copy-button.clicked svg.clip {
+  stroke-dashoffset: -50;
+}
+
+.chat .copy-button.clicked svg.check {
+  stroke-dashoffset: 0;
+}
+
+blockquote p {
+  padding: 2px 10px;
+  border-left: 3px var(--text-color);
+}
+
+@media (max-width: 560px) {
+  .chat .avatar {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .chat.bot .msg:after {
+    left: 2.1rem;
+  }
+
+  .chat.user .msg:after {
+    right: 2.1rem;
+  }
+
+  .chat .msg {
+    min-height: 1rem;
+  }
 }

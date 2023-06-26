@@ -8,8 +8,7 @@ function ChatElement(props: React.PropsWithChildren<{
   const { isUser, avatar, children } = props
   let classList: string[] = ['chat']
 
-  if (isUser)
-    classList.push('user')
+  classList.push(isUser ? 'user' : 'bot')
 
   if (!avatar)
     classList.push('no-avatar')

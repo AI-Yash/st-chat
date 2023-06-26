@@ -8,10 +8,10 @@ except ImportError:
     from typing_extensions import Literal
 
 
-_RELEASE = True
+_RELEASE = False
 COMPONENT_NAME = "streamlit_chat"
 NO_AVATAR: str = 'no-avatar'
-
+COPY_CODE_BUTTON: str = 'copy-code'
 # use the build instead of development if release is true
 if _RELEASE:
     root_dir = os.path.dirname(os.path.abspath(__file__))
@@ -64,7 +64,8 @@ def message(message: str,
             seed: Optional[Union[int, str]] = 88,
             key: Optional[str] = None, 
             allow_html: Optional[bool] = False, 
-            is_table: Optional[bool] = False):
+            is_table: Optional[bool] = False, 
+            copy_button: Union[Optional[bool], COPY_CODE_BUTTON] = False):
     """
     Creates a new instance of streamlit-chat component
 
@@ -96,9 +97,6 @@ def message(message: str,
     Returns: None
     """
 
-    if logo:
-        _streamlit_chat(message=message, seed=seed, isUser=is_user, logo=logo, key=key, allow_html=allow_html, is_table=is_table)
-    else:
-        if not avatar_style:
-            avatar_style = "fun-emoji" if is_user else "bottts"
-        _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key, allow_html=allow_html, is_table=is_table)
+    if not avatar_style:
+        avatar_style = "fun-emoji" if is_user else "bottts"
+    _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key, allow_html=allow_html, is_table=is_table, logo=logo, copy_btn=copy_button)

@@ -1,10 +1,10 @@
-3. local media 
-5. Disable user/bot avatar
-4. improve CSS for visual elements
-6. Streamline text display
-1. Copy to Clipboard
-2. container for ChatBox
-7. wait for next message (Loader)
+[x] local media 
+[x] Disable user/bot avatar
+[O] improve CSS for visual elements
+[ ] Streamline text display
+[x] Copy to Clipboard
+[ ] container for ChatBox
+[ ] wait for next message (Loader)
 
 import streamlit_chat as stc
 

@@ -1,4 +1,4 @@
-from streamlit_chat import message, NO_AVATAR
+from streamlit_chat import message, NO_AVATAR, COPY_CODE_BUTTON
 import streamlit as st
 
 
@@ -11,9 +11,7 @@ youtube_embed = '''
 markdown = """
 ### HTML in markdown is ~quite~ **unsafe**
 
-<blockquote>
-However, if you are in a trusted environment (you trust the markdown). You can use allow_html props to enable support for html.
-</blockquote>
+> However, if you are in a trusted environment (you trust the markdown). You can use `allow_html` props to enable support for html.
 
 * Lists
 * [ ] todo
@@ -57,7 +55,7 @@ The term "ChatterBot" was originally coined by Michael Mauldin (creator of the f
 def on_input_change():
     user_input = st.session_state.user_input
     st.session_state.past.append(user_input)
-    st.session_state.generated.append("The messages from Bot\nWith new line")
+    st.session_state.generated.append({'type': 'normal', 'data': "The messages from Bot\nWith new line"})
 
 def on_btn_click():
     del st.session_state.past[:]
@@ -72,7 +70,8 @@ if __name__ == '__main__':
         'show me image of cat', 
         'and video of it',
         'show me some markdown sample',
-        'table in markdown']
+        'table in markdown',
+        'local image please', 'collapsed section\n please']
     )
 
     st.session_state.setdefault(
@@ -80,10 +79,11 @@ if __name__ == '__main__':
         [{'type': 'normal', 'data': long_message}, 
         {'type': 'normal', 'data': 'Line 1 \n Line 2 \n Line 3'},
         {'type': 'normal', 'data': f'<audio controls src="{audio_path}"></audio>'}, 
-        {'type': 'normal', 'data': f'<img width="100%" height="200" src="{img_path}"/>'}, 
+        {'type': 'normal', 'data': f'Here\' an image of a cat\n<img width="100%" height="200" src="{img_path}"/>'}, 
         {'type': 'normal', 'data': f'{youtube_embed}'},
         {'type': 'normal', 'data': f'{markdown}'},
-        {'type': 'table', 'data': f'{table_markdown}'}]
+        {'type': 'table', 'data': f'{table_markdown}'},
+        {'type': 'image', 'data': '![alt](http://172.26.21.189:8501/app/static/unsplash-image.jpg)'}, {'type': 'normal', 'data': 'hey ! <details><summary>Tips for collapsed sections</summary>\n\n### You can add a header\n\nyou can add text within a collapsed section. \n\nYou can add an image or a code block, too.\n\n```ruby\n\tputs "Hello World"\n```\n\n</details>'}]
     )
 
     st.title("Chat placeholder")
@@ -98,9 +98,10 @@ if __name__ == '__main__':
                 key=f"{i}", 
                 allow_html=True,
                 is_table=st.session_state['generated'][i]['type']=='table',
-                avatar_style=NO_AVATAR
+                logo='http://172.26.21.189:8501/app/static/unsplash-bot.jpg',
+                copy_button=COPY_CODE_BUTTON
             )
         st.button("Clear message", on_click=on_btn_click)
-
+    
     with st.container():
         st.text_input("User Input:", on_change=on_input_change, key="user_input")

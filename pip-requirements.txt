@@ -1,4 +1,6 @@
 altair==4.1.0
+
+altair==4.1.0
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
 astor==0.8.1

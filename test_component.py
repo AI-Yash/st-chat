@@ -97,6 +97,7 @@ if __name__ == '__main__':
                 st.session_state['generated'][i]['data'], 
                 key=f"{i}", 
                 allow_html=True,
+                allow_math=True,
                 is_table=st.session_state['generated'][i]['type']=='table',
                 avatar_style=NO_AVATAR
             )

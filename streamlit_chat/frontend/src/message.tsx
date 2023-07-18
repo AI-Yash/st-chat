@@ -9,14 +9,14 @@ import 'katex/dist/katex.min.css'
 import 'highlight.js/styles/monokai-sublime.css'
 import React, { ReactElement } from "react"
 
-function Message(props: React.PropsWithChildren<{ is_table: boolean, message: string, allow_html: boolean }>): ReactElement {
+function Message(props: React.PropsWithChildren<{ is_table: boolean, message: string, allow_html: boolean, allow_math: boolean }>): ReactElement {
     // Init React Markdown plugins
     const remarkPlugins = [
-        remarkMath,
+        ...(props.allow_math ? [remarkMath] : []),
         remarkGfm
     ]
     const rehypePlugins = [
-        rehypeKatex,
+        ...(props.allow_math ? [rehypeKatex] : []),
         ...(props.allow_html ? [rehypeRaw] : [])
     ]
 

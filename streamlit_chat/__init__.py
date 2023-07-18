@@ -60,6 +60,7 @@ AvatarStyle = Literal[
 def message(message: str, 
             is_user: Optional[bool] = False, 
             avatar_style: Optional[AvatarStyle] = None,
+            avatar_custom: Optional[str] = None,
             logo: Optional[str]=None,
             seed: Optional[Union[int, str]] = 88,
             key: Optional[str] = None, 
@@ -80,6 +81,9 @@ def message(message: str,
         The style for the avatar of the sender of message, default is bottts
         for not user, and pixel-art-neutral for user.
         st-chat uses https://www.dicebear.com/styles for the avatar
+    avatar_custom: str or None
+        Use a custom avatar from a URL instead of a pre-canned avatar icon.
+        If this is set `avatar_style` will be ignored.
     logo: Literal or None
         The logo to be used if we do not wish Avatars to be used. This is useful
         if we want the chatbot to be branded
@@ -104,4 +108,4 @@ def message(message: str,
     else:
         if not avatar_style:
             avatar_style = "fun-emoji" if is_user else "bottts"
-        _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key, allow_html=allow_html, allow_math=allow_math, is_table=is_table)
+        _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, avatarCustom=avatar_custom, key=key, allow_html=allow_html, allow_math=allow_math, is_table=is_table)

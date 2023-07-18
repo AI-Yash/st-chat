@@ -16,8 +16,8 @@ class Chat extends StreamlitComponentBase {
     Streamlit.setFrameHeight(window.innerHeight)
 
     // const { isUser, avatarStyle, seed, message, logo } = this.props.args;
-    const { isUser, avatarStyle, seed, message, logo, allow_html, allow_math, is_table } = this.props.args;
-    const avatarUrl: string = !!logo ? logo: `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
+    const { isUser, avatarStyle, avatarCustom, seed, message, logo, allow_html, allow_math, is_table } = this.props.args;
+    const avatarUrl: string = !!logo ? logo: !!avatarCustom ? avatarCustom : `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
     
     // Streamlit sends us a theme object via props that we can use to ensure
     // that our component has visuals that match the active theme in a

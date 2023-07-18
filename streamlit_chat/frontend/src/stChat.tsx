@@ -16,7 +16,7 @@ class Chat extends StreamlitComponentBase {
     Streamlit.setFrameHeight(window.innerHeight)
 
     // const { isUser, avatarStyle, seed, message, logo } = this.props.args;
-    const { isUser, avatarStyle, seed, message, logo, allow_html, is_table } = this.props.args;
+    const { isUser, avatarStyle, seed, message, logo, allow_html, allow_math, is_table } = this.props.args;
     const avatarUrl: string = !!logo ? logo: `https://api.dicebear.com/5.x/${avatarStyle}/svg?seed=${seed}`
     
     // Streamlit sends us a theme object via props that we can use to ensure
@@ -42,7 +42,7 @@ class Chat extends StreamlitComponentBase {
     return (
       <ChatElement isUser={isUser} avatar={!(avatarStyle === 'no-avatar')}>
         <Avatar src={avatarUrl}/>
-        <Message is_table={is_table} message={message} allow_html={allow_html}/>
+        <Message is_table={is_table} message={message} allow_html={allow_html} allow_math={allow_math}/>
       </ChatElement>
     )
   }

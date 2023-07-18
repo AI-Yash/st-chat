@@ -64,6 +64,7 @@ def message(message: str,
             seed: Optional[Union[int, str]] = 88,
             key: Optional[str] = None, 
             allow_html: Optional[bool] = False, 
+            allow_math: Optional[bool] = True,
             is_table: Optional[bool] = False):
     """
     Creates a new instance of streamlit-chat component
@@ -85,9 +86,11 @@ def message(message: str,
     seed: int or str
         The seed for choosing the avatar to be used, default is 42.
     allow_html: Boolean 
-        makes it possible to use html in the message, when True, default False
+        Makes it possible to use html in the message, when True, default False
+    allow_math: Boolean
+        Makes it possible to use math (LaTeX) in the message, when True, default True
     is_table: Boolean
-        applies specific styling for tables
+        Applies specific styling for tables
     key: str or None
         An optional key that uniquely identifies this component. If this is
         None, and the component's arguments are changed, the component will
@@ -97,8 +100,8 @@ def message(message: str,
     """
 
     if logo:
-        _streamlit_chat(message=message, seed=seed, isUser=is_user, logo=logo, key=key, allow_html=allow_html, is_table=is_table)
+        _streamlit_chat(message=message, seed=seed, isUser=is_user, logo=logo, key=key, allow_html=allow_html, allow_math=allow_math, is_table=is_table)
     else:
         if not avatar_style:
             avatar_style = "fun-emoji" if is_user else "bottts"
-        _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key, allow_html=allow_html, is_table=is_table)
+        _streamlit_chat(message=message, seed=seed, isUser=is_user, avatarStyle=avatar_style, key=key, allow_html=allow_html, allow_math=allow_math, is_table=is_table)

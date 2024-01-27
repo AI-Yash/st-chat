@@ -33,7 +33,7 @@ from streamlit.components.v1 import html
 def on_input_change():
     user_input = st.session_state.user_input
     st.session_state.past.append(user_input)
-    st.session_state.generated.append("The messages from Bot\nWith new line")
+    st.session_state.generated.append({"type": "normal", "data": "The messages from Bot\nWith new line"})
 
 def on_btn_click():
     del st.session_state.past[:]
